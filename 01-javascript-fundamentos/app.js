@@ -239,6 +239,7 @@ console.log("\n🔄 Ciclos y repeticiones:");
 
 // For tradicional
 console.log("   Contando del 1 al 5:");
+// Template literal para alinear números
 for (let i = 1; i <= 5; i++) {
   console.log(`     ${i}. ¡Hola!`);
 }
