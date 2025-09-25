@@ -24,11 +24,21 @@ class Producto {
     this.stock = stock;
     this.activo = activo;
   }
+
+  desactivar() {
+    this.activo = false;
+  }
+
+  activar() {
+    this.activo = true;
+  }
 }
 
 const camisa = new Producto("prod-12", "Camisa playera", "Hombre", "Azul", 29.99, 100, true);
 const pantalon = new Producto("prod-34", "Pantalón vaquero", "Mujer", "Negro", 49.99, 50, true);
 const zapatos = new Producto("prod-56", "Zapatos deportivos", "Unisex", "Blanco", 79.99, 30, false);
+
+camisa.desactivar();
 
 console.log(camisa);
 console.log(pantalon);

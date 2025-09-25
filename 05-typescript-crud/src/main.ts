@@ -1,8 +1,8 @@
-// CRUD -> Leer, Crear 🟢, Actualizar, Borrar
+import "./api/userApi";
+
+/* // CRUD -> Leer, Crear 🟢, Actualizar, Borrar
 
 import products from "./modules/products";
-import mockApi from "./api/mockApi";
-import productsApi from "./api/productsApi";
 import apiMapper from "./api/apiMapper";
 
 products.create({
@@ -36,7 +36,7 @@ products.modify(2, {
 const allProducts2 = products.get();
 console.log(allProducts2);
 
-/* =============================== */
+// ===============================
 
 const callProductsApi = async () => {
   const data = await apiMapper.get();
@@ -49,3 +49,4 @@ callProductsApi();
 
 const allProducts3 = products.get();
 console.log(allProducts3);
+ */
