@@ -1,6 +1,9 @@
 // CRUD -> Leer, Crear 🟢, Actualizar, Borrar
 
 import products from "./modules/products";
+import mockApi from "./api/mockApi";
+import productsApi from "./api/productsApi";
+import apiMapper from "./api/apiMapper";
 
 products.create({
   name: "Producto 1",
@@ -14,4 +17,35 @@ products.create({
   stock: 20,
 });
 
-console.log(products.listProducts);
+// GET => Leer
+const allProducts = products.get();
+console.log(allProducts);
+
+// GET by ID => Leer un producto específico por su ID
+const product = products.getById(2);
+console.log(product);
+
+// PUT => Actualizar
+products.modify(2, {
+  name: "Producto 2 modificado",
+  price: 250,
+  stock: 15,
+});
+
+// GET => Leer
+const allProducts2 = products.get();
+console.log(allProducts2);
+
+/* =============================== */
+
+const callProductsApi = async () => {
+  const data = await apiMapper.get();
+  console.log(data);
+
+  products.createListProducts(data);
+};
+
+callProductsApi();
+
+const allProducts3 = products.get();
+console.log(allProducts3);

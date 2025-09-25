@@ -1,43 +1,71 @@
-import type { Product } from "./product";
+import type { Product } from "../interfaces/product";
 
 class Products {
-  public listProducts: Product[] = [];
+  private listProducts: Product[] = [];
 
   get(): Product[] {
-    // TODO: Retornar la lista completa de productos
-    // Pista: ¿Qué propiedad de la clase contiene todos los productos?
-    return [];
+    return [...this.listProducts];
   }
 
   getById(id: number): Product | undefined {
-    // TODO: Buscar y retornar un producto específico por su ID
-    // Pista: Usa el método find() del array para buscar el producto
-    // Recuerda que si no encuentra el producto, debe retornar undefined
-    return;
+    if (!this.findProductIndexById(id)) return undefined;
+    return this.listProducts.find((item) => item.id === id);
   }
 
   create(product: Product): void {
     const newProduct = {
-      id: this.listProducts.length + 1,
+      id: this.listProducts.length + 1, // crear un ID autoincrementable
       ...product,
     };
 
     this.listProducts.push(newProduct);
   }
 
+  createListProducts(products: Product[]): void {
+    this.listProducts = [...this.listProducts, ...products];
+  }
+
   modify(id: number, product: Product): void {
-    // TODO: Actualizar un producto existente
-    // Pista 1: Primero encuentra el índice del producto usando findIndex()
-    // Pista 2: Si el producto existe (índice >= 0), actualiza sus propiedades
-    // Pista 3: Mantén el ID original del producto, solo actualiza los demás campos
-    return;
+    if (!this.findProductIndexById(id)) return;
+
+    const index: number = this.extractIndexProductId(id);
+    this.listProducts[index] = {
+      id,
+      ...product,
+    };
   }
 
   delete(id: number): void {
-    // TODO: Eliminar un producto por su ID
-    // Pista 1: Encuentra el índice del producto usando findIndex()
-    // Pista 2: Si el producto existe, usa splice() para eliminarlo del array
-    // Pista 3: splice(indice, 1) elimina 1 elemento en la posición 'indice'
+    if (!this.findProductIndexById(id)) return;
+
+    const index: number = this.extractIndexProductId(id);
+    this.listProducts.splice(index, 1);
+  }
+
+  private findProductIndexById(id: number): boolean {
+    const index = this.listProducts.findIndex((item) => {
+      return item.id === id;
+    });
+
+    const isExists = index >= 0;
+
+    // Validaciones
+    // 1. Si no existe el producto, retornar undefined
+    if (!isExists) throw new Error("Producto no encontrado");
+
+    // 2. Si el array de productos está vacío, retornar undefined
+    if (this.listProducts.length === 0) throw new Error("No hay productos disponibles");
+
+    // 3. Si el ID es menor o igual a 0, retornar undefined
+    if (id <= 0) throw new Error("ID inválido");
+
+    return isExists;
+  }
+
+  private extractIndexProductId(id: number): number {
+    const index = this.listProducts.findIndex((item) => item.id === id);
+    if (index === -1) throw new Error("Producto no encontrado");
+    return index;
   }
 }
 
